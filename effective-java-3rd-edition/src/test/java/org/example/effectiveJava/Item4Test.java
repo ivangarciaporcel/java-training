@@ -8,8 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class Item4Test {
 
     /**
-     * A class can be
-     * made noninstantiable by including a private constructor
+     * Item 4: Enforce noninstantiability with a private constructor
      */
     @Test
     public void Get_ListOfNumbers_SumOfNumbers() {
