@@ -3,13 +3,16 @@ package sia.tacocloud.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import sia.tacocloud.domain.Ingredient;
 import sia.tacocloud.domain.Ingredient.Type;
 import sia.tacocloud.domain.Taco;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,8 +22,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/design")
 public class DesignTacoController {
 
-    @GetMapping
-    public String showDesignForm(Model model) {
+    @ModelAttribute
+    public void addIngredientsToModel(Model model) {
         List<Ingredient> ingredients = Arrays.asList(
                 Ingredient.builder().id("FLTO").name("Flour Tortilla").type(Type.WRAP).build(),
                 Ingredient.builder().id("COTO").name("Corn Tortilla").type(Type.WRAP).build(),
@@ -36,14 +39,19 @@ public class DesignTacoController {
         ingredients.stream()
                 .collect(Collectors.groupingBy(ingredient -> ingredient.getType().toString().toLowerCase()))
                 .forEach(model::addAttribute);
+    }
+
+    @GetMapping
+    public String showDesignForm(Model model) {
         model.addAttribute("design", new Taco());
         return "tacoDesign";
     }
 
     @PostMapping
-    public String processDesign(Taco taco) {
-// Save the taco design...
-// We'll do this in chapter 3
+    public String processDesign(@Valid @ModelAttribute("design") Taco taco, Errors errors) {
+        if (errors.hasErrors()) {
+            return "tacoDesign";
+        }
         log.info("Processing design: " + taco);
         return "redirect:/orders/current";
     }
