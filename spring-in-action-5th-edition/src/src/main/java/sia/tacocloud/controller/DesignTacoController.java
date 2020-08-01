@@ -1,5 +1,6 @@
 package sia.tacocloud.controller;
 
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import sia.tacocloud.domain.Ingredient;
 import sia.tacocloud.domain.Order;
 import sia.tacocloud.domain.Taco;
+import sia.tacocloud.model.TacoModel;
 import sia.tacocloud.repository.IngredientRepository;
 import sia.tacocloud.repository.TacoRepository;
 
@@ -48,8 +50,8 @@ public class DesignTacoController {
     }
 
     @ModelAttribute(name = "taco")
-    public Taco taco() {
-        return new Taco();
+    public TacoModel taco() {
+        return new TacoModel();
     }
 
     @GetMapping
@@ -58,13 +60,26 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processDesign(@Valid Taco taco, Errors errors, @ModelAttribute Order order) {
+    public String processDesign(@Valid TacoModel taco, Errors errors, @ModelAttribute Order order) {
         if (errors.hasErrors()) {
             return "tacoDesign";
         }
         log.info("Processing design: " + taco);
-        Taco saved = tacoRepository.save(taco);
+        Taco saved = tacoRepository.save(mapToTaco(taco));
         order.addTaco(saved);
         return "redirect:/orders/current";
+    }
+
+    private Taco mapToTaco(TacoModel tacoModel) {
+        List<Ingredient> ingredients = new ArrayList<>();
+        tacoModel.getIngredients()
+                .forEach(
+                        ingredient -> {
+                            Ingredient ingredientTO = ingredientRepository.findById(ingredient)
+                                    .orElseThrow(() -> new IllegalArgumentException("Ingredient not valid"));
+                            ingredients.add(ingredientTO);
+                        }
+                );
+        return new Taco(tacoModel.getName(), ingredients);
     }
 }
