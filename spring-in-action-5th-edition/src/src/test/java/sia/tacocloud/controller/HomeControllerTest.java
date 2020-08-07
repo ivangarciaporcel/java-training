@@ -2,18 +2,21 @@ package sia.tacocloud.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import sia.tacocloud.repository.IngredientRepository;
 import sia.tacocloud.repository.OrderRepository;
 import sia.tacocloud.repository.TacoRepository;
+import sia.tacocloud.repository.UserRepository;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
+@AutoConfigureMockMvc(addFilters = false)
 public class HomeControllerTest {
 
     @Autowired
@@ -27,6 +30,9 @@ public class HomeControllerTest {
 
     @MockBean
     private OrderRepository orderRepository;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @Test
     public void Get_HttpRequest_HomePage() throws Exception {
