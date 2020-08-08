@@ -62,6 +62,9 @@ public class Order implements Serializable {
         tacos.add(taco);
     }
 
+    @ManyToOne
+    private User user;
+
     @PrePersist
     void PlacedAt() {
         this.placedAt = new Date();

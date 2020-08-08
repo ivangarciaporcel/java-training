@@ -33,6 +33,10 @@ public class User implements UserDetails {
     private String zip;
     private String phoneNumber;
 
+    public User() {
+
+    }
+
     public User(String userName, String password, String fullname, String street, String city, String state,
                 String zip, String phoneNumber) {
         this.username = userName;
