@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import sia.tacocloud.domain.User;
+import sia.tacocloud.domain.UserPrincipal;
 import sia.tacocloud.repository.UserRepository;
 
 import java.util.Optional;
@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<UserPrincipal> user = userRepository.findByUsername(username);
         return user.orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found", username)));
     }
 }

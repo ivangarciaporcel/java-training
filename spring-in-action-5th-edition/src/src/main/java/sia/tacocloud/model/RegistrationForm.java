@@ -2,7 +2,7 @@ package sia.tacocloud.model;
 
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import sia.tacocloud.domain.User;
+import sia.tacocloud.domain.UserPrincipal;
 
 @Data
 public class RegistrationForm {
@@ -15,8 +15,8 @@ public class RegistrationForm {
     private String zip;
     private String phone;
 
-    public User toUser(PasswordEncoder passwordEncoder) {
-        return new User(username, passwordEncoder.encode(password),
+    public UserPrincipal toUser(PasswordEncoder passwordEncoder) {
+        return new UserPrincipal(username, passwordEncoder.encode(password),
                 fullname, street, city, state, zip, phone);
     }
 }

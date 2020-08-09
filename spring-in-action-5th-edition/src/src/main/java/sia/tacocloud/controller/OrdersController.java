@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import sia.tacocloud.domain.Order;
-import sia.tacocloud.domain.User;
+import sia.tacocloud.domain.UserPrincipal;
 import sia.tacocloud.repository.OrderRepository;
 
 import javax.validation.Valid;
@@ -41,8 +41,8 @@ public class OrdersController {
         }
         log.info("Order submitted: " + order);
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        order.setUser(user);
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        order.setUserPrincipal(userPrincipal);
         orderRepository.save(order);
         sessionStatus.setComplete();
         return "redirect:/";

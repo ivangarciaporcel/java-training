@@ -17,7 +17,7 @@ import java.util.Collections;
 @Getter
 @Setter
 @AllArgsConstructor
-public class User implements UserDetails {
+public class UserPrincipal implements UserDetails {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,12 +33,12 @@ public class User implements UserDetails {
     private String zip;
     private String phoneNumber;
 
-    public User() {
+    public UserPrincipal() {
 
     }
 
-    public User(String userName, String password, String fullname, String street, String city, String state,
-                String zip, String phoneNumber) {
+    public UserPrincipal(String userName, String password, String fullname, String street, String city, String state,
+                         String zip, String phoneNumber) {
         this.username = userName;
         this.password = password;
         this.fullname = fullname;

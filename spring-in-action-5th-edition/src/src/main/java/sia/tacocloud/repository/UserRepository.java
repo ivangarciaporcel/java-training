@@ -2,11 +2,11 @@ package sia.tacocloud.repository;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
-import sia.tacocloud.domain.User;
+import sia.tacocloud.domain.UserPrincipal;
 
 import java.util.Optional;
 
-public interface UserRepository extends CrudRepository<User, Long>, JpaSpecificationExecutor<User> {
+public interface UserRepository extends CrudRepository<UserPrincipal, Long>, JpaSpecificationExecutor<UserPrincipal> {
 
-    Optional<User> findByUsername(String username);
+    Optional<UserPrincipal> findByUsername(String username);
 }
