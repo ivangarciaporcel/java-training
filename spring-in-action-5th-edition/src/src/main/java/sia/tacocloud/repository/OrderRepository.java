@@ -1,10 +1,12 @@
 package sia.tacocloud.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import sia.tacocloud.domain.Order;
+import sia.tacocloud.domain.UserPrincipal;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,8 @@ public interface OrderRepository extends CrudRepository<Order, Long>, JpaSpecifi
     List<Order> findByNameAndCityAllIgnoringCase(String name, String city);
 
     List<Order> findByCityOrderByName(String city);
+
+    List<Order> findOrdersByUserPrincipalOrderByPlacedAtDesc(UserPrincipal userPrincipal, Pageable pageable);
 
     // Custom methods
     @Query("select o from Order o where o.city=:city")

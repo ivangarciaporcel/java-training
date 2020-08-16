@@ -18,3 +18,12 @@ flyway:
   user: postgres
   password: postgres
 
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG
+
+# Custom properties
+taco:
+  orders:
+    pageSize: 10

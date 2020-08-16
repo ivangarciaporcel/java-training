@@ -10,6 +10,7 @@ import sia.tacocloud.repository.IngredientRepository;
 import sia.tacocloud.repository.OrderRepository;
 import sia.tacocloud.repository.TacoRepository;
 import sia.tacocloud.repository.UserRepository;
+import sia.tacocloud.utils.OrderProperties;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -33,6 +34,9 @@ public class HomeControllerTest {
 
     @MockBean
     private UserRepository userRepository;
+
+    @MockBean
+    private OrderProperties orderProperties;
 
     @Test
     public void Get_HttpRequest_HomePage() throws Exception {
