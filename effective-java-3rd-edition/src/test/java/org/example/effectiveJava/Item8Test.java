@@ -4,7 +4,7 @@ import org.example.effectiveJava.item8.Room;
 import org.junit.Test;
 
 /**
- * Avoid finalizers and cleaners
+ * Item 8: Avoid finalizers and cleaners
  * 1.- Cleaners are less dangerous than finalizers, but still unpredicable, slow and generally unnecessary.
  * 2.- Never depend on a finalizer or cleaner to update persistent state.
  * 2.1.- Uncaught exceptions thrown inside a finalizer will be ignored and the finalization of an object will end.
