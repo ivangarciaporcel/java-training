@@ -3,14 +3,16 @@ package org.example.effectiveJava;
 import org.example.effectiveJava.item7.Stack;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.assertEquals;
 
 public class Item7Test {
 
     /**
      * Item 7: Eliminate obsolete object references
+     * There are three common sources of memory leakes
+     * 1.- Leaving obsolete object references
+     * 2.- Leaving unused entries in Caches (Maps, HashMap vs WeakHashMap)
+     * 3.- Not deregister callbacks explicitly or close listeners, they will accumulate in memory
      */
 
     /**
