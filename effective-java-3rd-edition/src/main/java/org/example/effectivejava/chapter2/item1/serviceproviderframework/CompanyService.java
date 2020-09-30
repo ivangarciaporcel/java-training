@@ -7,7 +7,7 @@ import java.util.ServiceLoader;
 public class CompanyService {
 
     private static final CompanyService COMPANY_SERVICE = new CompanyService();
-    private ServiceLoader<Company> loader;
+    private final ServiceLoader<Company> loader;
 
     private CompanyService() {
         loader = ServiceLoader.load(Company.class);
@@ -28,7 +28,6 @@ public class CompanyService {
                 }
             }
         } catch (ServiceConfigurationError serviceError) {
-            employees = 0;
             serviceError.printStackTrace();
         }
         return employees;

@@ -2,7 +2,7 @@ package org.example.effectivejava.chapter2.item1.serviceproviderframework;
 
 public interface Company {
 
-    public long getNumberOfEmployees();
+    long getNumberOfEmployees();
 
-    public String getCompanyName();
+    String getCompanyName();
 }

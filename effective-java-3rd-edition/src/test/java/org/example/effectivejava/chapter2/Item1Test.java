@@ -79,7 +79,7 @@ public class Item1Test {
      * Such flexible static factory methods form the basis of service provider frameworks, which was implemented
      * as part of the following example with Companies:
      * - Service Interface: JalasoftCompany, MojixCompany, etc
-     * - Provider Registration API: META-INF/services/org.example.effectivejava.chapter2.item1.serviceproviderframework.company
+     * - Provider Registration API: META-INF/services/org.example.effectivejava.chapter2.item1.serviceproviderframework.Company
      * - Service Access API: CompanyService
      * - Service Provider Interface: Company
      */
