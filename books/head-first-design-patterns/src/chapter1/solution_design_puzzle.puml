@@ -1,0 +1,61 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package Client <<Rectangle>> {
+    abstract class Character {
+     WeaponBehavior weaponBehavior
+     fight()
+     setWeaponBehavior()
+     other() // other character-like methods
+    }
+
+    class Queen {
+        fight()
+    }
+
+    class King {
+        fight()
+    }
+
+    class Troll {
+        fight()
+    }
+
+    class Knight {
+        fight()
+    }
+}
+package "Encapsulated weapon behavior" <<Rectangle>> {
+    interface WeaponBehavior {
+        useWeapon()
+    }
+
+    class KnifeBehavior {
+        useWeapon() // implements using a knife
+    }
+
+    class BowAndArrowBehavior {
+        useWeapon() // implements using bow and arrow
+    }
+
+    class AxeBehavior {
+        useWeapon() // implements using an axe
+    }
+
+    class SwordBehavior {
+        useWeapon() // implements using a sword
+    }
+}
+
+Character -right-> WeaponBehavior: has-a
+Character <|-down- Queen: is-a
+Character <|-down- King: is-a
+Character <|-down- Troll: is-a
+Character <|-down- Knight: is-a
+WeaponBehavior <|.. KnifeBehavior: implements
+WeaponBehavior <|.. BowAndArrowBehavior: implements
+WeaponBehavior <|.. AxeBehavior: implements
+WeaponBehavior <|.. SwordBehavior: implements
+
+hide empty members
+@enduml

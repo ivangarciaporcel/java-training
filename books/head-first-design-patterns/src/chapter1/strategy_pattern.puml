@@ -1,0 +1,77 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package Client <<Rectangle>> {
+    abstract class Duck {
+     FlyBehavior flyBehavior
+     QuackBehavior quackBehavior
+     swim()
+     display()
+     performQuack()
+     performFly()
+     setFlyBehavior()
+     setQuackBehavior()
+     other() // other duck-like methods
+    }
+
+    class MallardDuck {
+        display() // looks like a mallard
+    }
+
+    class ReadHeadDuck {
+        display() // looks like a redhead
+    }
+
+    class RubberDuck {
+        display() // looks like a rubber duck
+    }
+
+    class DecoyDuck {
+        display() // looks like a decoy duck
+    }
+}
+package "Encapsulated fly behavior" <<Rectangle>> {
+    interface FlyBehavior {
+        fly()
+    }
+
+    class FlyWithWings {
+        fly() // implements duck flying
+    }
+
+    class FlyNoWay {
+        fly() // do nothing - can't fly
+    }
+}
+package "Encapsulated quack behavior" <<Rectangle>> {
+    interface QuackBehavior {
+        quack()
+    }
+
+    class Quack {
+        quack() // implements duck quacking
+    }
+
+    class Squeak {
+        quack() // rubber duckie squeak
+    }
+
+    class MuteQuack {
+        quack() // do nothing - can't quack
+    }
+}
+
+Duck -left-> FlyBehavior: has-a
+Duck -right-> QuackBehavior: has-a
+Duck <|-down- MallardDuck: is-a
+Duck <|-down- ReadHeadDuck: is-a
+Duck <|-down- RubberDuck: is-a
+Duck <|-down- DecoyDuck: is-a
+FlyBehavior <|.. FlyWithWings: implements
+FlyBehavior <|.. FlyNoWay: implements
+QuackBehavior <|.. Quack: implements
+QuackBehavior <|.. Squeak: implements
+QuackBehavior <|.. MuteQuack: implements
+
+hide empty members
+@enduml
