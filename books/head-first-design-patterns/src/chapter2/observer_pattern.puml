@@ -1,0 +1,63 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "Observer Pattern" <<Rectangle>> {
+    interface Subject {
+        addObserver()
+        removeObserver()
+        notifyObservers()
+    }
+
+    class WeatherData implements Subject {
+        float temperature
+        float humidity
+        float pressure
+        getTemperature()
+        getHumidity()
+        getPressure()
+        measurementsChanged()
+        addObserver()
+        removeObserver()
+        notifyObservers()
+    }
+
+    interface Observer {
+        update()
+    }
+
+    interface DisplayElement {
+        display()
+    }
+
+    class CurrentConditionsDisplay implements Observer, DisplayElement {
+        WeatherData weatherData
+        update()
+        display()
+    }
+
+    class ForecastDisplay implements Observer, DisplayElement {
+        WeatherData weatherData
+        update()
+        display()
+    }
+
+    class StatisticsDisplay implements Observer, DisplayElement {
+        WeatherData weatherData
+        update()
+        display()
+    }
+
+    class HeatIndexDisplay implements Observer, DisplayElement {
+        WeatherData weatherData
+        update()
+        display()
+    }
+}
+
+note "Every observer implementation has a reference to WeatherData" as reference_note
+Subject -left-> Observer: has-a
+StatisticsDisplay -right-> WeatherData: has-a
+StatisticsDisplay .. reference_note
+reference_note .. WeatherData
+hide empty members
+@enduml
