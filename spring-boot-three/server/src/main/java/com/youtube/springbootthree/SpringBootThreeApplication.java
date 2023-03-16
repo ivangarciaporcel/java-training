@@ -1,5 +1,7 @@
 package com.youtube.springbootthree;
 
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -34,9 +36,11 @@ public class SpringBootThreeApplication {
 class CustomerHttpController {
 
     private final CustomerService customerService;
+    private final ObservationRegistry observationRegistry;
 
-    CustomerHttpController(CustomerService customerService) {
+    CustomerHttpController(CustomerService customerService, ObservationRegistry observationRegistry) {
         this.customerService = customerService;
+        this.observationRegistry = observationRegistry;
     }
 
     @GetMapping("/customers")
@@ -47,7 +51,9 @@ class CustomerHttpController {
     @GetMapping("/customers/{name}")
     Customer byName(@PathVariable String name) {
         Assert.state(Character.isUpperCase(name.charAt(0)), "the name must start with a capital letter!");
-        return this.customerService.byName(name);
+        return Observation
+                .createNotStarted("byName", this.observationRegistry) // will create a metric every single time by name method is called
+                .observe(() -> this.customerService.byName(name));
     }
 }
 
