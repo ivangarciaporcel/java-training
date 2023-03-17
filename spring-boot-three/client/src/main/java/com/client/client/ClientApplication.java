@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.reactive.function.client.support.WebClientAdapter
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @SpringBootApplication
 public class ClientApplication {
@@ -81,6 +83,11 @@ class CustomerGraphqlController {
     Flux<Customer> customerByName(@Argument String name) {
         return this.cc.byName(name);
     }
+
+    @SchemaMapping(typeName = "Customer")
+    Mono<Profile> profile(Customer customer) {
+        return Mono.just(new Profile(customer.id()));
+    }
 }
 
 interface CustomerClient {
@@ -94,5 +101,9 @@ interface CustomerClient {
 
 // no more lombok!
 record Customer(Integer id, String name) {
+
+}
+
+record Profile(Integer id) {
 
 }
