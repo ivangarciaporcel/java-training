@@ -7,7 +7,11 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.annotation.GetExchange;
@@ -59,13 +63,33 @@ public class ClientApplication {
 
 }
 
+@Controller
+class CustomerGraphqlController {
+
+    private final CustomerClient cc;
+
+    CustomerGraphqlController(CustomerClient cc) {
+        this.cc = cc;
+    }
+
+    @QueryMapping
+    Flux<Customer> customers() {
+        return this.cc.all();
+    }
+
+    @QueryMapping
+    Flux<Customer> customerByName(@Argument String name) {
+        return this.cc.byName(name);
+    }
+}
+
 interface CustomerClient {
 
     @GetExchange("/customers")
     Flux<Customer> all();
 
     @GetExchange("/customers/{name}")
-    Flux<Customer> byName(String name);
+    Flux<Customer> byName(@PathVariable String name);
 }
 
 // no more lombok!
