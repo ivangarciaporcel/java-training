@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-package Client <<Rectangle>> {
+package "Strategy Pattern" <<Rectangle>> {
     abstract class Duck {
      FlyBehavior flyBehavior
      QuackBehavior quackBehavior

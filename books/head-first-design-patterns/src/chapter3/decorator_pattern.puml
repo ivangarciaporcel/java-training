@@ -1,0 +1,65 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package Beverages <<Rectangle>> {
+
+    interface Beverage {
+        getDescription()
+        getCost()
+    }
+
+    class Espresso implements Beverage {
+        getDescription()
+        getCost()
+    }
+
+    class Decaf implements Beverage {
+        getDescription()
+        getCost()
+    }
+
+    class DarkRoast implements Beverage {
+        getDescription()
+        getCost()
+    }
+
+    class HouseBlend implements Beverage {
+        getDescription()
+        getCost()
+    }
+}
+
+package Condiments <<Rectangle>> {
+
+    abstract class CondimentDecorator {
+        Beverage beverage
+        getDescription()
+        getCost()
+    }
+
+    class SteamedMilk {
+        SteamedMilk(beverage)
+    }
+
+    class Soy {
+        Soy(beverage)
+    }
+
+    class Mocha {
+        Mocha(beverage)
+    }
+
+    class Whip {
+        Whip(beverage)
+    }
+
+}
+
+Beverage <|.right. CondimentDecorator: implements
+CondimentDecorator <|-- SteamedMilk: is-a
+CondimentDecorator <|-- Soy: is-a
+CondimentDecorator <|-- Mocha: is-a
+CondimentDecorator <|-- Whip: is-a
+
+hide empty members
+@enduml

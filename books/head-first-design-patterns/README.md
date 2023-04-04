@@ -9,6 +9,9 @@
 ### Chapter 2
 - Strive for loosely coupled designs between objects that interact.
 
+### Chapter 3
+- Open for extension, closed for modification.
+
 ## Design Patterns
 - [x] Strategy (Chapter 1)
 ```
@@ -20,4 +23,11 @@ independently from clients that use it.
 Defines a one-to-many dependency between objects so that when one object changes state, all of its dependents are 
 notified and updated automatically.
 ```
+
+- [x] Decorator (Chapter 3)
+```
+Attaches additional responsabilities to an object dynamically. Decorator provide a flexible alternative to subclassing
+for extending functionality
+```
+
 - [ ] Another not visited pattern
